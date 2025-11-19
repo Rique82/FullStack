@@ -22,6 +22,6 @@ export const updateUser = async (id, user) => {
 }
 
 export const deleteUser = async (id) => {
-    const response = await api.delete(`/api/v1/users/${id}`)
+    const response = await api.delete(`/api/v1/user/${id}`)
     return response
 }
