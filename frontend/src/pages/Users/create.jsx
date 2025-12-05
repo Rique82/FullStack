@@ -1,30 +1,38 @@
 import { useState } from "react"
 import { createUser } from "../../api/users";
 import { useNavigate } from "react-router-dom";
+import './styles.css'
+
+const INITIALSTATE = {
+    nome: '',
+    email: '',
+    senha: '',
+    ativo: true
+}
 
 export default function CreateUser() {
     const navigate = useNavigate()
 
-    const [user, setUser] = useState({
-        nome: '',
-        email: '',
-        senha: '',
-        ativo: true
-    })
+    const [user, setUser] = useState(INITIALSTATE)
 
     const HandleChange = (e) => {
-        const {id, value} = e.target;
+        const { id, value } = e.target;
         setUser({
             ...user,
             [id]: value
         })
     }
 
+    const HandleReset = (e) => {
+        e.preventDefault()
+        setUser(INITIALSTATE)
+    }
+
     const HandleSave = async (e) => {
         e.preventDefault()
         const response = await createUser(user)
 
-        if(response.status === 201){
+        if (response.status === 201) {
             navigate('/users')
         } else {
             console.log(response)
@@ -51,7 +59,7 @@ export default function CreateUser() {
                     <input type="password" name="senha" id="senha" value={user.senha} onChange={HandleChange} />
                 </div>
 
-                <button type="reset">Limpar</button>
+                <button type="reset" onClick={HandleReset}>Limpar</button>
                 <button type="submit" onClick={HandleSave}>Enviar</button>
 
             </form>
