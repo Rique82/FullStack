@@ -10,7 +10,7 @@ app.use('/api/v1', router)
 
 const port = 3000
 
-database.db.sync({ force: false })
+database.db.sync({ force: true })
 
 .then((_)=> {
     app.listen(port, () => {
